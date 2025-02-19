@@ -1,30 +1,38 @@
 {
-    "name": "Google Meet presence list",
-    "description": "Automatically gives you a google meet presence list",
-    "version": "0.0.0.1",
-    "permissions": [
-        "tabs","https://meet.google.com/*"
-    ],
-    "browser_action": {
-        "default_icon": "icons/icon.png"
+    "manifest_version": 3,
+    "name": "Google Meet Presence List",
+    "version": "1.0",
+    "description": "Exporta la lista de participantes de Google Meet",
+    "icons": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
     },
-    "icons": { 
-        "16": "icons/16.ico",
-        "32": "icons/32.png",
-        "48": "icons/48.png",
-        "64": "icons/64.png",
-       "128": "icons/128.png" },
+    "action": {
+      "default_icon": {
+        "16": "images/icon16.png",
+        "48": "images/icon48.png"
+      },
+      "default_title": "Google Meet Presence List"
+    },
+    "permissions": [
+      "activeTab",
+      "scripting"
+    ],
+    "host_permissions": [
+      "https://meet.google.com/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
     "content_scripts": [
-        {
-        "matches": [
-            "https://meet.google.com/*"
-            ],
-        "js": ["main.js"],
-        "run_at": "document_end"
-        }
+      {
+        "matches": ["https://meet.google.com/*"],
+        "js": ["content.js"]
+      }
     ],
-    "web_accessible_resources":[
-        "resources/*"
-    ],
-    "manifest_version": 2
-}
+    "web_accessible_resources": [{
+      "resources": ["popup.html", "popup.css", "popup.js"],
+      "matches": ["https://meet.google.com/*"]
+    }]
+  }
